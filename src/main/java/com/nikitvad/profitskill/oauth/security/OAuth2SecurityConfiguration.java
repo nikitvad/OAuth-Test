@@ -1,6 +1,7 @@
 package com.nikitvad.profitskill.oauth.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -25,14 +27,15 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private ClientDetailsService clientDetailsService;
 
+	@Qualifier("appUserDetailsServiceImpl")
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private UserDetailsService userDetailsService;
 	
 	@Autowired
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-        .withUser("bill").password(passwordEncoder.encode("password")).roles("ADMIN").and()
-        .withUser("bob").password(passwordEncoder.encode("password")).roles("USER");
+        auth.userDetailsService(userDetailsService);
+//        .withUser("bill").password(passwordEncoder.encode("password")).roles("ADMIN").and()
+//        .withUser("bob").password(passwordEncoder.encode("password")).roles("USER");
     }
 	
 
