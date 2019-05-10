@@ -1,6 +1,5 @@
-package com.nikitvad.profitskill.oauth.security;
+package com.nikitvad.profitskill.security;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class CustomPasswordEncoder implements PasswordEncoder {

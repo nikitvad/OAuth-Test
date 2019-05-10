@@ -1,5 +1,7 @@
-package com.nikitvad.profitskill.oauth.model;
+package com.nikitvad.profitskill.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,13 +17,15 @@ import java.util.Collection;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AppUserDetails implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
+    @JsonIgnore
     private String password;
+
     @Column(unique = true)
     private String username;
 
@@ -31,9 +35,15 @@ public class AppUserDetails implements UserDetails {
         return null;
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
+    }
+
+    @JsonSetter
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
