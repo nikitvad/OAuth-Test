@@ -1,7 +1,5 @@
 package com.nikitvad.profitskill.user;
 
-import com.nikitvad.profitskill.util.Measurable;
-import com.nikitvad.profitskill.util.PerformanceMater;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
